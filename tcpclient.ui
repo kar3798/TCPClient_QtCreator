@@ -40,22 +40,6 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_message">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>380</width>
-      <height>230</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QPushButton" name="sendButton">
     <property name="geometry">
      <rect>
@@ -76,6 +60,16 @@
       <y>280</y>
       <width>380</width>
       <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="chatHistory">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>380</width>
+      <height>230</height>
      </rect>
     </property>
    </widget>

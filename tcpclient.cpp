@@ -9,12 +9,14 @@ TCPClient::TCPClient(QWidget *parent)
     ui->setupUi(this);
 
     // Setup the UI
-    ui->label_message->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    ui->label_message->setWordWrap(true);
+    ui->chatHistory->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    ui->chatHistory->setWordWrapMode(QTextOption::WordWrap);
+    ui->chatHistory->setReadOnly(true);
 
     // Connect signals to slots
     connect(ui->connectServer, &QPushButton::clicked, this, &TCPClient::on_pushButton_clicked);
     connect(ui->sendButton, &QPushButton::clicked, this, &TCPClient::sendMessage);
+    connect(ui->lineEdit, &QLineEdit::returnPressed, this, &TCPClient::sendMessage); // Send on Enter key
     connect(tcpSocket, &QTcpSocket::readyRead, this, &TCPClient::onReadyRead);
 
 }
@@ -32,7 +34,7 @@ void TCPClient::on_pushButton_clicked()
 
     if (tcpSocket->waitForConnected(5000)){
         ui->label->setText("Connected to server!");
-        tcpSocket->write("Hello, server!");
+        // tcpSocket->write("Hello, server!");
     } else {
         ui->label->setText("Failed to connect to server!");
     }
@@ -43,8 +45,8 @@ void TCPClient::onReadyRead()
 {
     QByteArray dataFromServer = tcpSocket->readAll();
     QString responseMessage = QString::fromUtf8(dataFromServer);
-    ui->label_message->setText("Received from server: " + responseMessage);
-    qDebug() << "Received from server:" << responseMessage;
+    // Append server message to chat history
+    ui->chatHistory->append("<b>Server:</b> " + responseMessage);
 }
 
 // This function handles the portion for the data to the client
@@ -53,7 +55,9 @@ void TCPClient::sendMessage()
     QString message = ui->lineEdit->text();
     if (tcpSocket->state() == QAbstractSocket::ConnectedState) {
         tcpSocket->write(message.toUtf8());
-        ui->label_message->setText(ui->label_message->text() + "\nClient: " + message);
+        // Append client message to chat history
+        ui->chatHistory->append("<b>Client:</b> " + message);
+
         ui->lineEdit->clear();
     }
 }

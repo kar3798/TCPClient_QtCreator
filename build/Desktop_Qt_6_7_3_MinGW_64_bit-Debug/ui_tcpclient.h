@@ -16,6 +16,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -26,9 +27,9 @@ public:
     QWidget *centralwidget;
     QPushButton *connectServer;
     QLabel *label;
-    QLabel *label_message;
     QPushButton *sendButton;
     QLineEdit *lineEdit;
+    QTextEdit *chatHistory;
     QMenuBar *menubar;
 
     void setupUi(QMainWindow *TCPClient)
@@ -44,16 +45,15 @@ public:
         label = new QLabel(centralwidget);
         label->setObjectName("label");
         label->setGeometry(QRect(10, 0, 380, 20));
-        label_message = new QLabel(centralwidget);
-        label_message->setObjectName("label_message");
-        label_message->setGeometry(QRect(10, 40, 380, 230));
-        label_message->setStyleSheet(QString::fromUtf8(""));
         sendButton = new QPushButton(centralwidget);
         sendButton->setObjectName("sendButton");
         sendButton->setGeometry(QRect(230, 320, 140, 50));
         lineEdit = new QLineEdit(centralwidget);
         lineEdit->setObjectName("lineEdit");
         lineEdit->setGeometry(QRect(10, 280, 380, 30));
+        chatHistory = new QTextEdit(centralwidget);
+        chatHistory->setObjectName("chatHistory");
+        chatHistory->setGeometry(QRect(10, 40, 380, 230));
         TCPClient->setCentralWidget(centralwidget);
         menubar = new QMenuBar(TCPClient);
         menubar->setObjectName("menubar");
@@ -70,7 +70,6 @@ public:
         TCPClient->setWindowTitle(QCoreApplication::translate("TCPClient", "TCPClient", nullptr));
         connectServer->setText(QCoreApplication::translate("TCPClient", "Connect to Server", nullptr));
         label->setText(QString());
-        label_message->setText(QString());
         sendButton->setText(QCoreApplication::translate("TCPClient", "Send", nullptr));
     } // retranslateUi
 
