@@ -1,5 +1,6 @@
 #include "tcpclient.h"
 #include "ui_tcpclient.h"
+#include <QDateTime>
 
 TCPClient::TCPClient(QWidget *parent)
     : QMainWindow(parent)
@@ -45,8 +46,13 @@ void TCPClient::onReadyRead()
 {
     QByteArray dataFromServer = tcpSocket->readAll();
     QString responseMessage = QString::fromUtf8(dataFromServer);
-    // Append server message to chat history
-    ui->chatHistory->append("<b>Server:</b> " + responseMessage);
+
+    // Get current time for the timestamp
+    QString timeStamp = QDateTime::currentDateTime().toString("hh:mm:ss");
+
+    // Format and append server message with timestamp and color
+    ui->chatHistory->append(QString("<font color='green'>[%1] <b>Server:</b> %2</font>")
+                                .arg(timeStamp, responseMessage));
 }
 
 // This function handles the portion for the data to the client
@@ -55,8 +61,12 @@ void TCPClient::sendMessage()
     QString message = ui->lineEdit->text();
     if (tcpSocket->state() == QAbstractSocket::ConnectedState) {
         tcpSocket->write(message.toUtf8());
-        // Append client message to chat history
-        ui->chatHistory->append("<b>Client:</b> " + message);
+        // Get current time for the timestamp
+        QString timeStamp = QDateTime::currentDateTime().toString("hh:mm:ss");
+
+        // Format and append client message with timestamp and color
+        ui->chatHistory->append(QString("<font color='blue'>[%1] <b>Client:</b> %2</font>")
+                                    .arg(timeStamp, message));
 
         ui->lineEdit->clear();
     }
