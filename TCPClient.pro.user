@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 14.0.2, 2024-10-10T12:48:23. -->
+<!-- Written by QtCreator 14.0.2, 2024-10-17T00:10:15. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -433,6 +433,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QdbLinuxRunConfiguration:C:/Qt/Projects/TCPClient/TCPClient.pro</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Qt/Projects/TCPClient/TCPClient.pro</value>
     <value type="bool" key="ProjectExplorer.RunConfiguration.Customized">false</value>
+    <value type="QString" key="QdbRunConfig.RemoteExecutable">device://QdbHardwareDevice:b2qt-raspberrypi-armv8-2ccf6738c</value>
     <value type="int" key="RemoteLinux.EnvironmentAspect.Version">1</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>

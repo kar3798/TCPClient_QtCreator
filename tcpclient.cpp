@@ -2,6 +2,10 @@
 #include "ui_tcpclient.h"
 #include <QDateTime>
 
+// Build environment
+#define NATIVE
+// #define RPI
+
 TCPClient::TCPClient(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::TCPClient)
@@ -30,8 +34,12 @@ TCPClient::~TCPClient()
 // This function will be triggered when the button is clicked, connects client to the server
 void TCPClient::on_pushButton_clicked()
 {
-    // Connect to the server on localhost and port 1234
-    tcpSocket->connectToHost("127.0.0.1", 1234);
+    // Set the IP address based on the environment
+    #ifdef NATIVE
+        tcpSocket->connectToHost("127.0.0.1", 1234); // Localhost for native testing
+    #elif defined(RPI)
+        tcpSocket->connectToHost("10.0.0.69", 1234); // Raspberry Pi's IP address
+    #endif
 
     if (tcpSocket->waitForConnected(5000)){
         ui->label->setText("Connected to server!");
