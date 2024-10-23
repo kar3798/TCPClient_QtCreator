@@ -14,7 +14,7 @@ This is a simple TCP chat client application built using Qt. The client connects
 
 ## Screenshot
 
-![TCPClient Screenshot](images/TCPClient_screenshot.png)
+![TCPClient Screenshot](image/TCPClient_screenshot.png)
 
 ## Steps to Create a Windows Executable (`.exe`)
 
