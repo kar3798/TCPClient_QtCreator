@@ -30,6 +30,8 @@ public:
     QPushButton *sendButton;
     QLineEdit *lineEdit;
     QTextEdit *chatHistory;
+    QLabel *label_instruction;
+    QLabel *label_instruction_2;
     QMenuBar *menubar;
 
     void setupUi(QMainWindow *TCPClient)
@@ -41,23 +43,29 @@ public:
         centralwidget->setObjectName("centralwidget");
         connectServer = new QPushButton(centralwidget);
         connectServer->setObjectName("connectServer");
-        connectServer->setGeometry(QRect(10, 320, 140, 50));
+        connectServer->setGeometry(QRect(10, 340, 140, 50));
         label = new QLabel(centralwidget);
         label->setObjectName("label");
         label->setGeometry(QRect(10, 0, 380, 20));
         sendButton = new QPushButton(centralwidget);
         sendButton->setObjectName("sendButton");
-        sendButton->setGeometry(QRect(230, 320, 140, 50));
+        sendButton->setGeometry(QRect(250, 340, 140, 50));
         lineEdit = new QLineEdit(centralwidget);
         lineEdit->setObjectName("lineEdit");
-        lineEdit->setGeometry(QRect(10, 280, 380, 30));
+        lineEdit->setGeometry(QRect(10, 290, 380, 30));
         chatHistory = new QTextEdit(centralwidget);
         chatHistory->setObjectName("chatHistory");
-        chatHistory->setGeometry(QRect(10, 40, 380, 230));
+        chatHistory->setGeometry(QRect(10, 30, 380, 230));
+        label_instruction = new QLabel(centralwidget);
+        label_instruction->setObjectName("label_instruction");
+        label_instruction->setGeometry(QRect(10, 270, 380, 20));
+        label_instruction_2 = new QLabel(centralwidget);
+        label_instruction_2->setObjectName("label_instruction_2");
+        label_instruction_2->setGeometry(QRect(250, 320, 140, 20));
         TCPClient->setCentralWidget(centralwidget);
         menubar = new QMenuBar(TCPClient);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 400, 21));
+        menubar->setGeometry(QRect(0, 0, 400, 17));
         TCPClient->setMenuBar(menubar);
 
         retranslateUi(TCPClient);
@@ -71,6 +79,8 @@ public:
         connectServer->setText(QCoreApplication::translate("TCPClient", "Connect to Server", nullptr));
         label->setText(QString());
         sendButton->setText(QCoreApplication::translate("TCPClient", "Send", nullptr));
+        label_instruction->setText(QString());
+        label_instruction_2->setText(QString());
     } // retranslateUi
 
 };

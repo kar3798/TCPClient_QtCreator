@@ -18,6 +18,12 @@ TCPClient::TCPClient(QWidget *parent)
     ui->chatHistory->setWordWrapMode(QTextOption::WordWrap);
     ui->chatHistory->setReadOnly(true);
 
+    ui->label_instruction->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    ui->label_instruction->setText("Type your message below:");
+
+    ui->label_instruction_2->setAlignment(Qt::AlignCenter | Qt::AlignTop);
+    ui->label_instruction_2->setText("Press Enter or click Send");
+
     // Connect signals to slots
     connect(ui->connectServer, &QPushButton::clicked, this, &TCPClient::on_pushButton_clicked);
     connect(ui->sendButton, &QPushButton::clicked, this, &TCPClient::sendMessage);
@@ -34,19 +40,31 @@ TCPClient::~TCPClient()
 // This function will be triggered when the button is clicked, connects client to the server
 void TCPClient::on_pushButton_clicked()
 {
-    // Set the IP address based on the environment
-    #ifdef NATIVE
-        tcpSocket->connectToHost("127.0.0.1", 1234); // Localhost for native testing
-    #elif defined(RPI)
-        tcpSocket->connectToHost("10.0.0.69", 1234); // Raspberry Pi's IP address
-    #endif
+    if(tcpSocket->state() == QAbstractSocket::UnconnectedState)
+    {
+        // Attempt to connect to the server
+        // Set the IP address based on the environment
+        #ifdef NATIVE
+                tcpSocket->connectToHost("127.0.0.1", 1234); // Localhost for native testing
+        #elif defined(RPI)
+                tcpSocket->connectToHost("10.0.0.69", 1234); // Raspberry Pi's IP address
+        #endif
 
-    if (tcpSocket->waitForConnected(5000)){
-        ui->label->setText("Connected to server!");
-        // tcpSocket->write("Hello, server!");
-    } else {
-        ui->label->setText("Failed to connect to server!");
+        if (tcpSocket->waitForConnected(5000)){
+            ui->label->setText("Connected to server!");
+            ui->connectServer->setText("Disconnect from server");
+        } else {
+            ui->label->setText("Failed to connect to server!");
+        }
     }
+    else
+    {
+        // If already connected, disconnect
+        tcpSocket->disconnectFromHost();
+        ui->label->setText("Disconnected from server!");
+        ui->connectServer->setText("Connect to server");
+    }
+
 }
 
 // This function handles incoming data from the server
